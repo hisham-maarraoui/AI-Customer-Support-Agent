@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || (process.env.NODE_ENV === 'production' ? 'https://your-backend-url.railway.app' : 'http://localhost:8000');
+const API_BASE_URL = process.env.REACT_APP_API_URL || (process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:8000');
 
 export const useChat = () => {
     const [messages, setMessages] = useState([]);
@@ -13,7 +13,7 @@ export const useChat = () => {
     // Send message mutation
     const sendMessageMutation = useMutation(
         async (message) => {
-            const response = await axios.post(`${API_BASE_URL}/api/chat`, {
+            const response = await axios.post(`${API_BASE_URL}/chat`, {
                 message,
                 conversation_id: conversationId,
                 user_id: 'anonymous', // In production, this would come from auth
@@ -25,23 +25,12 @@ export const useChat = () => {
                 // Add assistant response (user message is already added in sendMessage)
                 const assistantMessage = {
                     role: 'assistant',
-                    content: data.message,
+                    content: data.response,
                     timestamp: new Date().toISOString(),
-                    confidence: data.confidence,
                     sources: data.sources || [],
-                    guardrail_triggered: data.guardrail_triggered || false,
-                    guardrail_type: data.guardrail_type,
-                    tool_used: data.tool_used,
-                    meeting_id: data.meeting_id,
                 };
 
                 setMessages(prev => [...prev, assistantMessage]);
-                setConversationId(data.conversation_id);
-
-                // Show success toast for tool usage
-                if (data.tool_used === 'schedule_meeting') {
-                    toast.success('Meeting scheduled successfully!');
-                }
             },
             onError: (error) => {
                 console.error('Error sending message:', error);
