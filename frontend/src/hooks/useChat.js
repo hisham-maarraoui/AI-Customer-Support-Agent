@@ -51,7 +51,7 @@ export const useChat = () => {
 
         // Send to API
         await sendMessageMutation.mutateAsync(message);
-    }, [sendMessageMutation, conversationId]);
+    }, [sendMessageMutation]);
 
     const clearConversation = useCallback(() => {
         setMessages([]);
