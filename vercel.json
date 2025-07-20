@@ -1,10 +1,14 @@
 {
   "version": 2,
-  "functions": {
-    "api/**/*.py": {
-      "runtime": "python3.9"
+  "builds": [
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "build"
+      }
     }
-  },
+  ],
   "routes": [
     {
       "src": "/api/(.*)",
@@ -14,17 +18,5 @@
       "src": "/(.*)",
       "dest": "/frontend/$1"
     }
-  ],
-  "env": {
-    "GOOGLE_API_KEY": "@google_api_key",
-    "PINECONE_API_KEY": "@pinecone_api_key",
-    "PINECONE_ENVIRONMENT": "@pinecone_environment",
-    "PINECONE_INDEX_NAME": "@pinecone_index_name",
-    "VAPI_API_KEY": "@vapi_api_key",
-    "VAPI_PUBLIC_KEY": "@vapi_public_key",
-    "GEMINI_MODEL": "@gemini_model",
-    "EMBEDDING_MODEL": "@embedding_model",
-    "VECTOR_DIMENSION": "@vector_dimension",
-    "VECTOR_METRIC": "@vector_metric"
-  }
+  ]
 } 
