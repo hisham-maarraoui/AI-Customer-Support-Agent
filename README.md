@@ -1,12 +1,12 @@
 # Apple Support AI Agent
 
-An intelligent AI-powered customer support agent that provides accurate, helpful information about Apple products and services through a modern chat interface.
+An intelligent AI-powered customer support agent that provides helpful information about Apple products and services through a modern chat interface.
 
 ## Features
 
-- AI-Powered Support: Uses Google Gemini with RAG (Retrieval-Augmented Generation) for accurate responses
-- Real-time Chat Interface: Modern React-based chat with message history and conversation management
-- Knowledge Base: Comprehensive Apple support documentation indexed with vector embeddings
+- AI-Powered Support: Provides helpful responses to Apple support questions
+- Retrieval-Augmented Generation: Answers are grounded in Apple support documentation
+- Real-time Chat Interface: Modern React-based chat with message history (in-memory only)
 - Source Citations: Every response includes relevant Apple support links with confidence scores
 - Safety Guardrails: Detects and handles sensitive queries appropriately
 - Confidence Scoring: Shows AI confidence levels based on source relevance
@@ -44,7 +44,6 @@ An intelligent AI-powered customer support agent that provides accurate, helpful
 ### Backend
 
 - FastAPI - Modern Python web framework
-- Google Gemini - AI language model for responses
 - Pinecone - Vector database for semantic search
 - Uvicorn - ASGI server
 - Pydantic - Data validation and settings
@@ -63,7 +62,6 @@ An intelligent AI-powered customer support agent that provides accurate, helpful
 
 - Python 3.9+
 - Node.js 18+
-- Google Gemini API key
 - Pinecone account and API key
 
 ### 1. Clone the Repository
@@ -102,31 +100,7 @@ npm install
 cp .env.example .env  # Create .env file if needed
 ```
 
-### 4. Environment Variables
-
-**Backend (.env):**
-
-```env
-# Google Gemini Configuration
-GOOGLE_API_KEY=your_gemini_api_key
-GEMINI_MODEL=gemini-2.0-flash
-
-# Pinecone Configuration
-PINECONE_API_KEY=your_pinecone_api_key
-PINECONE_ENVIRONMENT=your_pinecone_environment
-PINECONE_INDEX_NAME=apple-support
-
-# Application Configuration
-DEBUG=True
-```
-
-**Frontend (.env):**
-
-```env
-REACT_APP_API_URL=http://localhost:8000
-```
-
-### 5. Run the Application
+### 4. Run the Application
 
 **Start the backend:**
 
@@ -179,23 +153,6 @@ cd backend
 python scripts/evaluate_agent.py
 ```
 
-## Deployment
-
-### Vercel Deployment
-
-The project includes Vercel configuration files for easy deployment:
-
-- vercel.json - Vercel configuration
-- frontend/vercel-build.sh - Custom build script
-
-### Railway Deployment
-
-Railway configuration is included in railway.json.
-
-### Manual Deployment
-
-See DEPLOYMENT.md for detailed deployment instructions.
-
 ## Development
 
 ### Project Structure
@@ -205,25 +162,9 @@ See DEPLOYMENT.md for detailed deployment instructions.
 - Data: Apple support documentation and evaluation datasets
 - Scripts: Utility scripts for scraping, evaluation, and maintenance
 
-### Key Features
-
-- Vector Search: Semantic search through Apple support documentation
-- RAG Pipeline: Retrieval-Augmented Generation for accurate responses
-- Confidence Scoring: AI confidence based on source relevance
-- Conversation Management: Persistent chat history and context
-- Safety Features: Guardrails for sensitive content detection
-
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Support
-
-For support and questions:
-
-- Check the Issues page
-- Review the documentation in the docs/ folder
-- Contact the development team
 
 ---
 
