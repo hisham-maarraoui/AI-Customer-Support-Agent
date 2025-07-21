@@ -55,9 +55,9 @@ Remember: You are not a replacement for official Apple Support, but a helpful as
             
             # Search for relevant information
             try:
-            search_results = vector_store.search(user_message, k=5)
-            # Prepare context from search results
-            context_text = self._prepare_context(search_results)
+                search_results = vector_store.search(user_message, k=5)
+                # Prepare context from search results
+                context_text = self._prepare_context(search_results)
             except Exception as search_error:
                 logger.warning(f"Vector search failed: {search_error}")
                 search_results = []
@@ -68,17 +68,17 @@ Remember: You are not a replacement for official Apple Support, but a helpful as
             
             # Generate response using Gemini with better error handling
             try:
-            response = self.model.generate_content(
-                messages,
-                generation_config=genai.types.GenerationConfig(
-                    temperature=0.7,
-                    max_output_tokens=1000,
+                response = self.model.generate_content(
+                    messages,
+                    generation_config=genai.types.GenerationConfig(
+                        temperature=0.7,
+                        max_output_tokens=1000,
+                    )
                 )
-            )
-            
-            # Process response
-            assistant_message = response.text
                 
+                # Process response
+                assistant_message = response.text
+                    
             except Exception as gemini_error:
                 error_str = str(gemini_error)
                 logger.error(f"Gemini API error: {error_str}")

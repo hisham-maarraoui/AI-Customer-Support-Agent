@@ -1,142 +1,245 @@
-# AI Apple Customer Support Agent
+# Apple Support AI Agent
 
-An intelligent customer support agent that can answer questions about Apple products and services through both text chat and voice interactions.
+An intelligent AI-powered customer support agent that provides accurate, helpful information about Apple products and services through a modern chat interface.
 
-## Features
+## 🚀 Features
 
-- 🤖 **AI-Powered Support**: Uses RAG (Retrieval-Augmented Generation) to provide accurate, up-to-date information
-- 💬 **Text Chat Interface**: Real-time chat with the AI agent
-- 🎤 **Voice Support**: Voice interactions powered by Vapi.ai
-- 📚 **Knowledge Base**: Scraped and indexed Apple support information
+- 🤖 **AI-Powered Support**: Uses Google Gemini with RAG (Retrieval-Augmented Generation) for accurate responses
+- 💬 **Real-time Chat Interface**: Modern React-based chat with message history and conversation management
+- 📚 **Knowledge Base**: Comprehensive Apple support documentation indexed with vector embeddings
+- 🎯 **Source Citations**: Every response includes relevant Apple support links with confidence scores
 - 🛡️ **Safety Guardrails**: Detects and handles sensitive queries appropriately
-- 📅 **Meeting Scheduling**: Tool calls for scheduling appointments
-- 📊 **Evaluation Framework**: Comprehensive testing with 50+ realistic scenarios
+- 📊 **Confidence Scoring**: Shows AI confidence levels based on source relevance
+- 🌙 **Dark Mode**: Beautiful dark/light theme toggle
+- 📱 **Responsive Design**: Works seamlessly on desktop and mobile devices
 
-## Project Structure
+## 🏗️ Architecture
 
 ```
 ├── backend/                 # FastAPI backend
 │   ├── app/
-│   │   ├── api/            # API routes
-│   │   ├── core/           # Configuration and utilities
-│   │   ├── models/         # Data models
-│   │   ├── services/       # Business logic
-│   │   └── scrapers/       # Web scraping modules
-│   ├── requirements.txt
-│   └── main.py
+│   │   ├── api/routes/     # API endpoints (chat, voice, knowledge, schedule)
+│   │   ├── core/           # Configuration and settings
+│   │   ├── models/         # Pydantic data models
+│   │   ├── services/       # Business logic (AI agent, vector store, guardrails)
+│   │   └── scrapers/       # Apple support data scraping
+│   ├── requirements.txt    # Python dependencies
+│   └── main.py            # FastAPI application entry point
 ├── frontend/               # React frontend
 │   ├── src/
-│   │   ├── components/     # React components
-│   │   ├── pages/          # Page components
-│   │   ├── services/       # API services
-│   │   └── utils/          # Utilities
-│   ├── package.json
-│   └── public/
-├── data/                   # Scraped data and evaluation sets
-├── scripts/                # Utility scripts
+│   │   ├── components/     # Reusable UI components
+│   │   ├── pages/          # Page components (Chat, About, Knowledge, etc.)
+│   │   ├── hooks/          # Custom React hooks
+│   │   ├── contexts/       # React contexts (Dark mode)
+│   │   └── index.js        # App entry point
+│   ├── package.json        # Node.js dependencies
+│   └── public/             # Static assets
+├── data/                   # Apple support data and evaluation sets
+├── scripts/                # Utility and evaluation scripts
 └── docs/                   # Documentation
 ```
 
-## Quick Start
+## 🛠️ Tech Stack
+
+### Backend
+
+- **FastAPI** - Modern Python web framework
+- **Google Gemini** - AI language model for responses
+- **Pinecone** - Vector database for semantic search
+- **Uvicorn** - ASGI server
+- **Pydantic** - Data validation and settings
+
+### Frontend
+
+- **React 18** - UI framework
+- **Tailwind CSS** - Utility-first CSS framework
+- **React Query** - Data fetching and caching
+- **React Router** - Client-side routing
+- **Axios** - HTTP client
+
+## 🚀 Quick Start
 
 ### Prerequisites
 
 - Python 3.9+
 - Node.js 18+
-- Pinecone account
-- Vapi.ai account
-- OpenAI API key
+- Google Gemini API key
+- Pinecone account and API key
 
-### Backend Setup
+### 1. Clone the Repository
+
+```bash
+git clone <repository-url>
+cd AI-Customer-Support-Agent-Project
+```
+
+### 2. Backend Setup
 
 ```bash
 cd backend
+
+# Create virtual environment
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install dependencies
 pip install -r requirements.txt
+
+# Set up environment variables
+cp .env.example .env  # Create .env file
+# Edit .env with your API keys
 ```
 
-### Frontend Setup
+### 3. Frontend Setup
 
 ```bash
 cd frontend
+
+# Install dependencies
 npm install
+
+# Set up environment variables (optional for local development)
+cp .env.example .env  # Create .env file if needed
 ```
 
-### Environment Variables
-
-Create `.env` files in both `backend/` and `frontend/` directories:
+### 4. Environment Variables
 
 **Backend (.env):**
-```
-OPENAI_API_KEY=your_openai_key
-PINECONE_API_KEY=your_pinecone_key
-PINECONE_ENVIRONMENT=your_pinecone_env
+
+```env
+# Google Gemini Configuration
+GOOGLE_API_KEY=your_gemini_api_key
+GEMINI_MODEL=gemini-2.0-flash
+
+# Pinecone Configuration
+PINECONE_API_KEY=your_pinecone_api_key
+PINECONE_ENVIRONMENT=your_pinecone_environment
 PINECONE_INDEX_NAME=apple-support
-VAPI_API_KEY=your_vapi_key
+
+# Application Configuration
+DEBUG=True
 ```
 
 **Frontend (.env):**
-```
+
+```env
 REACT_APP_API_URL=http://localhost:8000
-REACT_APP_VAPI_PUBLIC_KEY=your_vapi_public_key
 ```
 
-### Running the Application
+### 5. Run the Application
 
-1. **Start the backend:**
+**Start the backend:**
+
 ```bash
 cd backend
+source venv/bin/activate
 uvicorn main:app --reload
 ```
 
-2. **Start the frontend:**
+**Start the frontend (in a new terminal):**
+
 ```bash
 cd frontend
 npm start
 ```
 
-3. **Scrape Apple support data:**
+The application will be available at:
+
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:8000
+
+## 📡 API Endpoints
+
+- `POST /api/chat` - Chat with the AI agent
+- `GET /api/health` - Health check
+- `GET /api/conversations` - List conversations
+- `GET /api/conversations/{id}` - Get specific conversation
+- `DELETE /api/conversations/{id}` - Delete conversation
+
+## 🧪 Testing
+
+### Run Backend Tests
+
 ```bash
 cd backend
-python -m app.scrapers.apple_scraper
+python -m pytest
 ```
 
-## API Endpoints
+### Run Frontend Tests
 
-- `POST /api/chat` - Text chat with the AI agent
-- `POST /api/voice/start` - Start voice session
-- `POST /api/voice/end` - End voice session
-- `GET /api/knowledge/search` - Search knowledge base
-- `POST /api/schedule` - Schedule a meeting
+```bash
+cd frontend
+npm test
+```
 
-## Evaluation
-
-Run the evaluation framework:
+### Evaluate AI Agent
 
 ```bash
 cd backend
-python -m scripts.evaluate_agent
+python scripts/evaluate_agent.py
 ```
 
-This will test the agent against 50+ realistic scenarios and provide accuracy, helpfulness, and citation quality scores.
+## 🚀 Deployment
 
-## Safety Features
+### Vercel Deployment
 
-- Personal data detection and redaction
-- Legal/financial advice filtering
-- Toxicity detection
-- Rate limiting
-- Input validation
+The project includes Vercel configuration files for easy deployment:
 
-## Contributing
+- `vercel.json` - Vercel configuration
+- `frontend/vercel-build.sh` - Custom build script
+
+### Railway Deployment
+
+Railway configuration is included in `railway.json`.
+
+### Manual Deployment
+
+See `DEPLOYMENT.md` for detailed deployment instructions.
+
+## 🔧 Development
+
+### Project Structure
+
+- **Backend**: FastAPI application with modular architecture
+- **Frontend**: React application with component-based structure
+- **Data**: Apple support documentation and evaluation datasets
+- **Scripts**: Utility scripts for scraping, evaluation, and maintenance
+
+### Key Features
+
+- **Vector Search**: Semantic search through Apple support documentation
+- **RAG Pipeline**: Retrieval-Augmented Generation for accurate responses
+- **Confidence Scoring**: AI confidence based on source relevance
+- **Conversation Management**: Persistent chat history and context
+- **Safety Features**: Guardrails for sensitive content detection
+
+## 🤝 Contributing
 
 1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests
-5. Submit a pull request
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-## License
+## 📄 License
 
-MIT License 
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- Apple Support documentation for the knowledge base
+- Google Gemini for AI capabilities
+- Pinecone for vector database services
+- The open-source community for the amazing tools and libraries
+
+## 📞 Support
+
+For support and questions:
+
+- Check the [Issues](../../issues) page
+- Review the documentation in the `docs/` folder
+- Contact the development team
+
+---
+
+**Note**: This AI agent is designed to assist with Apple product support but is not a replacement for official Apple Support. For critical issues, always contact Apple Support directly.

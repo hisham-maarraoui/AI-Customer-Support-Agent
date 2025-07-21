@@ -13,7 +13,7 @@ export const useChat = () => {
     // Send message mutation
     const sendMessageMutation = useMutation(
         async (message) => {
-            const response = await axios.post(`${API_BASE_URL}/chat`, {
+            const response = await axios.post(`${API_BASE_URL}/api/chat`, {
                 message,
                 conversation_id: conversationId,
                 user_id: 'anonymous', // In production, this would come from auth
@@ -25,9 +25,10 @@ export const useChat = () => {
                 // Add assistant response (user message is already added in sendMessage)
                 const assistantMessage = {
                     role: 'assistant',
-                    content: data.response,
+                    content: data.message,
                     timestamp: new Date().toISOString(),
                     sources: data.sources || [],
+                    confidence: data.confidence || 0,
                 };
 
                 setMessages(prev => [...prev, assistantMessage]);

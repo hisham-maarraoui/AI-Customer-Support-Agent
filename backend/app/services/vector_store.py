@@ -23,15 +23,15 @@ class VectorStoreService:
             self.pc = None
             self.embeddings = None
         else:
-        # Initialize Pinecone client
-        self.pc = PineconeClient(api_key=self.pinecone_api_key)
+            # Initialize Pinecone client
+            self.pc = PineconeClient(api_key=self.pinecone_api_key)
 
-        # Initialize Gemini embeddings
+            # Initialize Gemini embeddings
             if self.google_api_key:
-        self.embeddings = GoogleGenerativeAIEmbeddings(
-            model=settings.embedding_model,
-            google_api_key=self.google_api_key
-        )
+                self.embeddings = GoogleGenerativeAIEmbeddings(
+                    model=settings.embedding_model,
+                    google_api_key=self.google_api_key
+                )
             else:
                 logger.warning("Google API key not provided. Embeddings will not work.")
                 self.embeddings = None
