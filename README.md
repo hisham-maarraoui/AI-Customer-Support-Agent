@@ -1,6 +1,6 @@
 # Apple Support AI Agent
 
-An intelligent AI-powered customer support agent that provides helpful information about Apple products and services through a modern chat interface.
+An AI-powered customer support agent that provides helpful information about Apple products and services through a modern chat interface.
 
 ## Features
 
