@@ -1,11 +1,10 @@
 {
-  "builds": [
+  "buildCommand": "chmod +x frontend/vercel-build.sh && ./frontend/vercel-build.sh",
+  "outputDirectory": "frontend/build",
+  "rewrites": [
     {
-      "src": "frontend/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "build"
-      }
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 } 
